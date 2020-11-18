@@ -178,7 +178,6 @@ function restablecerValores() {
         elmConstMult.value = "";
         elmMod.value = "";
         elmCant.value = "";
-        elmConfianza.value = "";
     }
     var elmMostrarDatos = document.getElementById("mostrarDatos");
     if (elmMostrarDatos.style.display === "block") {
