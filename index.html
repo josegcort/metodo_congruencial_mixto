@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+
+<!-- 
+* Simulación yteoria de la decisión
+*
+* 2020
+*
+* Docente Juan Sebastián Valencia Arias.
+* 
+* Jose Gabriel Cortazar Ocampo
+* Juan Camilo Perez -->
+<html>
+
+<head>
+
+    <title>Congruencial Mixto</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- CSS -->
+    <!--Descargado de una pagina de estilos JQ-->
+    <link rel="stylesheet" href="resources/css/main.css" />
+    <!--Agregado para que la pagina se adapte a diferentes dispositivos-->
+    <link rel="stylesheet" href="resources/css/bootstrap.min.css">
+
+    <!-- Scripts -->
+    <script src="resources/js/jquery.min.js"></script>
+    <script src="resources/js/jquery.scrollex.min.js"></script>
+    <script src="resources/js/jquery.scrolly.min.js"></script>
+    <script src="resources/js/skel.min.js"></script>
+    <script src="resources/js/util.js"></script>
+    <script src="resources/js/main.js"></script>
+    <script src="resources/logica/logica.js"></script>
+
+    <!-- ICONO -->
+    <link rel="icon" type="image/png" href="resources/img/icon.png" sizes="16x16 24x24 36x36 48x48">
+</head>
+
+<body>
+
+    <section class="wrapper style5">
+        <!-- Título principal -->
+        <h2 style="text-align: center;"><b>Generación de números
+											<br>pseudoaleatorios 
+											<br>y pruebas estadísticas</b></h2>
+        <br>
+        <br>
+        <div class="inner">
+
+            <div class="container" id="formDatos" style="display:block;">
+                <form id="formuDatos" name="formuDatos" method="post" action="#">
+                    <h3 style="text-align: center;">Datos de salida</h3>
+
+                    <br>
+                    <div class="row uniform">
+
+                        <div class="6u 12u$(xsmall)">
+                            <input type="text" name="semilla" id="semilla" value="" placeholder="Semilla" placeholder="Semilla" title="Por favor ingrese un valor numérico ." onkeyup="formato(this)" onchange="formato(this)" />
+                        </div>
+
+                        <div class="6u 12u$(xsmall)">
+                            <input type="text" name="constAditiva" id="constAditiva" value="" placeholder="Constante aditiva" title="Por favor ingrese un valor numérico" onkeyup="formato(this)" onchange="formato(this)" />
+                        </div>
+
+                        <div class="6u 12u$(xsmall)">
+                            <input type="text" name="constMultiplicativa" id="constMultiplicativa" value="" placeholder="Constante multiplicativa" title="Por favor ingrese un valor numérico." onkeyup="formato(this)" onchange="formato(this)" />
+                        </div>
+
+                        <div class="6u 12u$(xsmall)">
+                            <input type="text" name="modulo" id="modulo" value="" placeholder="Módulo" title="Por favor ingrese un valor numérico." onkeyup="formato(this)" onchange="formato(this)" />
+                        </div>
+
+                        <div class="6u 12u$(small)">
+                            <input type="text" name="cantidadN" id="cantidadN" value="" placeholder="Cantidad de números a generar" title="Por favor ingrese un valor numérico." onkeyup="formato(this)" onchange="formato(this)" />
+                        </div>
+
+                        <div class="6u 12u$(small)">
+                            <div>
+                                <h6>Nivel de Confianza:
+                                    <div>
+                                        <input type="radio" id="uno" name="nConfianza" value="0.1">
+                                        <label for="uno">90%</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="dos" name="nConfianza" value="0.05" checked>
+                                        <label for="dos" >95%</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="tres" name="nConfianza" value="0.025">
+                                        <label for="tres">97.5%</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="cuatro" name="nConfianza" value="0.001">
+                                        <label for="cuatro">99.9%</label>
+                                    </div>
+                                </h6>
+                            </div>
+                        </div>
+
+
+
+                        <div class="12u$">
+                            <ul class="actions" style="text-align: center">
+                                <li>
+                                    <input type="button" value="Generar números" title="Presione para generar los números aleatorios." class="principal" id="generarNumeros" onclick="enviarValores()" />
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <br>
+
+            <div class="container" id="mostrarDatos" style="display:none;">
+
+                <h3 style="text-align: center;">Datos de salida</h3>
+                <br>
+
+                <h5 style="text-align: center;"><b>Semilla: </b><label id="txtSemilla"></label></h5>
+
+                <h5 style="text-align: center;"><b>Constante Aditiva: </b><label id="txtConstAditiva"></label></h5>
+
+                <h5 style="text-align: center;"><b>Constante Multiplicativa: </b><label id="txtConstMultiplicativa"></label></h5>
+
+                <h5 style="text-align: center;"><b>Módulo: </b><label id="txtModulo"></label></h5>
+
+                <h5 style="text-align: center;"><b>Números solicitados: </b><label id="txtCantidadN"></label></h5>
+
+                <h5 style="text-align: center;"><b>Nivel de confianza: </b><label id="txtConfianza"></label></h5>
+
+                <h5 style="text-align: center;"><b>Periodo: </b><label id="txtPeriodo"></label></h5>
+
+                <h5 style="text-align: center;"><b>Números pseudoaleatorios solicitados: </b><textarea name="areaNumSoli" id="areaNumSoli" readonly="readonly" cols="30"></textarea></h5>
+
+                <br>
+                <br>
+                <br>
+                <h3 style="text-align: center;">Pruebas estadísticas</h3>
+                <br>
+
+                <!-- <h5 style="text-align: center;"><b>Números |Fn(Xi)-Xi| (KS): </b><textarea name="areaNumerosKS" id="areaNumerosKS" readonly="readonly" cols="30"></textarea></h5> -->
+
+                <h5 style="text-align: center;"><b>Prueba de Kolmogorov-Smirnov</b></h5> 
+
+                <h5 style="text-align: center;"><b>Valor Calculado (KS): </b><label id="valorKS"></label></h5>
+
+                <h5 style="text-align: center;"><b>Valor Tablas Aprox. (KS): </b><label id="tablasKS"></label></h5>
+
+                <h5 style="text-align: center;"><b>Conclusión (KS): </b><label id="txtConclusionKS"></label></h5>
+
+                <br>
+                <br>
+
+                <h5 style="text-align: center;"><b>Prueba de Corridas</b></h5> 
+
+                <h5 style="text-align: center;"><b>Numero de Corridas: </b><label id="corridas"></label></h5>
+
+                <h5 style="text-align: center;"><b>Conclusión (Corridas): </b><label id="conclusion"></label></h5>
+
+               
+
+                <br>
+                <form id="formReset" name="formReset" method="post" action="#">
+                    <br>
+                    <div class="row uniform">
+                        <div class="12u$">
+                            <ul class="actions" style="text-align: center">
+                                <li>
+                                    <input type="button" value="Generar nuevos números" title="Presione para ingresar los datos para generar nuevos números aleatorios." class="principal" id="agregarnuevos" onclick="restablecerValores()" />
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </section>
+
+</body>
+
+</html>
