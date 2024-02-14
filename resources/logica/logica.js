@@ -128,9 +128,11 @@ function calcularNumeros(semilla, constAditiva, constMultiplicativa, modulo, can
 
 
     for (var i = 0; revisarPeriodo(numeros, nSemilla); i++) {
-        numeros[i] = nSemilla;
-
-        nSemilla = (constAditiva + constMultiplicativa * nSemilla) % (modulo);
+        var tmp = (constAditiva + constMultiplicativa * nSemilla) % (modulo);
+        if(typeof tmp === 'number'){
+            numeros[i] = nSemilla;
+            nSemilla = tmp;    
+        }
 
     }
 
